@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 
 const LoginForm = () => {
     let submitError = null;
@@ -36,14 +36,25 @@ const LoginForm = () => {
                 }}
             >
                 {({ values, errors, touched, handleChange, isSubmitting, initialValues }) => (
-                    <form className="LoginForm">
-                        {/* inputs? materialui? whatever i choose to use */}
+                    <Form className="LoginForm">
+                        <div>
+                            <label htmlFor="username">Username</label>
+                            <Field id="username" name="username" placeholder="username" autoComplete="username" />
+                            {errors.username ? <small>{errors.username}</small> : '👍'}
+                        </div>
+
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <Field id="password" name="password" placeholder="password" type="password" autoComplete="current-password" />
+                            {errors.password ? <small>{errors.password}</small> : '👍'}
+                        </div>
+
+                        <button type="submit">Login</button>
                         {submitError
-                            // ? displayerror I think some of the uis had good alert/error components or formik might have one
-                            // : null
+                            ? <div>{submitError}</div>
+                            : null
                         }
-                        {/* submit button */}
-                    </form>
+                    </Form>
                 )}
             </Formik>
         </div>

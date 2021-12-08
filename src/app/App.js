@@ -1,9 +1,15 @@
-import Home from './home';
+import { BrowserRouter } from 'react-router-dom';
+import Routing from './Routes';
 
 function App() {
 	return (
 		<div className="App">
-			<Home/>
+			<BrowserRouter>
+				{/* navbar */}
+				<div className="App-content-div">
+					<Routing/>
+				</div>
+			</BrowserRouter>
 		</div>
 	);
 }
