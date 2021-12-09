@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import LoginForm from '../features/auth/LoginForm';
 import SignupForm from '../features/auth/SignupForm';
-import Home from '../app/home';
+import Home from './Home';
 import NotFound from '../app/NotFound';
 import Profile from '../features/users/Profile';
 import Instruments from '../features/instruments/Instruments';

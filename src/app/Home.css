@@ -1,0 +1,37 @@
+.Home {
+    height: 75vh;
+    background: 
+        linear-gradient(336deg, rgba(236, 152, 104, 0.8), rgba(255, 255, 255, 0) 55%),
+        linear-gradient(217deg, rgba(218, 228, 130, 0.8), rgba(255, 255, 255, 0) 70%),
+        linear-gradient(127deg, rgba(145, 230, 223, 0.8), rgba(255, 255, 255, 0) 65%);
+}
+
+.Home-login-div {
+    margin: 13% 0 0 13%;
+}
+
+.Home-login-div h2 {
+    color: rgb(52, 60, 68);
+    font-size: xx-large;
+    font-family: 'Bree Serif', serif;
+    letter-spacing: 1px;
+}
+
+.Home-login-div p {
+    color: rgb(118, 137, 156);
+    /* font-size: larger; */
+    font-family: 'Roboto Slab', serif;
+}
+
+.Home-img-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.Home img {
+    margin: auto;
+    max-height: 75vh;
+    opacity: 50%;
+    transform: scale(110%);
+}

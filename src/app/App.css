@@ -1,0 +1,17 @@
+body {
+    height: auto;
+    min-height: 98vh;
+    margin: 1vh 1vw;
+    font-family: 'Roboto Slab', serif;
+}
+
+.App {
+    margin: 0% 6%;
+    justify-content: center;
+    align-items: center;
+}
+
+.App-content-div {
+    margin: auto;
+    background-color: azure;
+}
