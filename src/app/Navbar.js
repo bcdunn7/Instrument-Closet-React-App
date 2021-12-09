@@ -6,12 +6,24 @@ import './Navbar.css';
 const Navbar = () => {
     return (
         <div className='Navbar'>
-            <Stack direction='row' spacing={2}>
-                <Link to='/' className='Navbar-logo'><span>T</span>he<span>I</span>nstrument<span>C</span>loset</Link>
-                <NavLink className='Navbar-navlink' to='/login'><Button>Login</Button></NavLink>
-                <NavLink className='Navbar-navlink' to='/signup'><Button>Sign Up</Button></NavLink>
-                <NavLink className='Navbar-navlink' to='/instruments'><Button>Instrument List</Button></NavLink>
-                <NavLink className='Navbar-navlink' to='/profile'><Button>Profile</Button></NavLink>
+            <Stack justifyContent='space-between' direction='row'>
+                <Stack direction='row' spacing={2}>
+                    <Link to='/' className='Navbar-logo'><span>T</span>he<span>I</span>nstrument<span>C</span>loset</Link>
+                </Stack>
+                <Stack direction='row' spacing={2}>
+                    <NavLink className='Navbar-navlink' to='/signup'>
+                        <Button className='Navbar-signup-btns' color='primaryDark'>
+                            <span className='Navbar-signup-btn-noaccount'>Don't Have An Account?</span>
+                            <span className='Navbar-signup-btn-signup'>Signup Now!</span>
+                        </Button>
+                    </NavLink>
+                    <NavLink className='Navbar-navlink' to='/instruments'>
+                        <Button color='primaryDark'>Instrument List</Button>
+                    </NavLink>
+                    <NavLink className='Navbar-navlink' to='/profile'>
+                        <Button color='primaryDark'>Profile</Button>
+                    </NavLink>
+                </Stack>
             </Stack>
         </div>
     )

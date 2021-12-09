@@ -1,11 +1,12 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
+import { TextField, Button } from '@mui/material';
+import './LoginForm.css';
 
 const LoginForm = () => {
     let submitError = null;
 
     return (
-        <div>
-            <h2>Login</h2>
+        <div className='LoginForm-div'>
             <Formik
                 initialValues={{
                     username: '',
@@ -37,23 +38,51 @@ const LoginForm = () => {
             >
                 {({ values, errors, touched, handleChange, isSubmitting, initialValues }) => (
                     <Form className="LoginForm">
-                        <div>
-                            <label htmlFor="username">Username</label>
-                            <Field id="username" name="username" placeholder="username" autoComplete="username" />
-                            {errors.username ? <small>{errors.username}</small> : '👍'}
-                        </div>
+                        <TextField
+                            id='username'
+                            name='username'
+                            label='Username'
+                            vairant='filled'
+                            onChange={handleChange}
+                            value={values.username}
+                            error={errors.username && touched.username ? true : false}
+                            helperText={errors.username && touched.username ? `${errors.username}` : ' '}
+                            margin='normal'
+                            fullWidth
+                            autoComplete='username'
+                            color='primaryDark'
+                        />
+                        
+                        <TextField
+                            type='password'
+                            id='password'
+                            name='password'
+                            label='Password'
+                            vairant='outlined'
+                            onChange={handleChange}
+                            value={values.password}
+                            error={errors.password && touched.password ? true : false}
+                            helperText={errors.password && touched.password ? `${errors.password}` : ' '}
+                            margin='normal'
+                            fullWidth
+                            autoComplete='current-password'
+                            color='primaryDark'
+                        />
 
-                        <div>
-                            <label htmlFor="password">Password</label>
-                            <Field id="password" name="password" placeholder="password" type="password" autoComplete="current-password" />
-                            {errors.password ? <small>{errors.password}</small> : '👍'}
-                        </div>
-
-                        <button type="submit">Login</button>
                         {submitError
                             ? <div>{submitError}</div>
                             : null
                         }
+
+                        <Button 
+                            variant='contained' 
+                            type='submit' 
+                            disabled={isSubmitting}
+                            fullWidth
+                            color='primaryDark'
+                        >
+                            🎹 Login 🎹
+                        </Button>
                     </Form>
                 )}
             </Formik>

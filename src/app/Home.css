@@ -1,9 +1,9 @@
 .Home {
-    height: 75vh;
+    height: 78vh;
     background: 
         linear-gradient(336deg, rgba(236, 152, 104, 0.8), rgba(255, 255, 255, 0) 55%),
-        linear-gradient(217deg, rgba(218, 228, 130, 0.8), rgba(255, 255, 255, 0) 70%),
-        linear-gradient(127deg, rgba(145, 230, 223, 0.8), rgba(255, 255, 255, 0) 65%);
+        linear-gradient(217deg, rgba(220, 237, 200, 1), rgba(255, 255, 255, 0) 70%),
+        linear-gradient(127deg, rgba(178, 235, 242, 1), rgba(255, 255, 255, 0) 65%);
 }
 
 .Home-login-div {
@@ -11,15 +11,15 @@
 }
 
 .Home-login-div h2 {
-    color: rgb(52, 60, 68);
+    color: rgba(0, 86, 98, 1);
     font-size: xx-large;
     font-family: 'Bree Serif', serif;
-    letter-spacing: 1px;
+    letter-spacing: 1.25px;
+    word-spacing: 3px;
 }
 
 .Home-login-div p {
-    color: rgb(118, 137, 156);
-    /* font-size: larger; */
+    color: rgb(95, 111, 126);
     font-family: 'Roboto Slab', serif;
 }
 
@@ -31,7 +31,7 @@
 
 .Home img {
     margin: auto;
-    max-height: 75vh;
+    max-height: 78vh;
     opacity: 50%;
-    transform: scale(110%);
+    transform: scale(108%);
 }

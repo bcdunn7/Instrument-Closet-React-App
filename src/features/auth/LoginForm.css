@@ -1,0 +1,15 @@
+.LoginForm-div {
+    margin-top: 50px;
+    margin-right: 150px;
+}
+
+.LoginForm-div button {
+    margin-top: 16px;
+    padding: 10px;
+    word-spacing: 5px;
+    font-size: larger;
+}
+
+input:-webkit-autofill { 
+    -webkit-background-clip: text;
+}

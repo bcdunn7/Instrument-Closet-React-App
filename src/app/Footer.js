@@ -2,7 +2,7 @@ import './Footer.css';
 
 const Footer = () => {
     return(
-        <footer className='Footer'>The Instrument Closet.</footer>
+        <footer className='Footer'><b>T</b>he<b>I</b>nstrument<b>C</b>loset</footer>
     )
 }
 
