@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import SignupForm from '../features/auth/SignupForm';
+import SignupForm from '../features/users/SignupForm';
 import Home from './Home';
 import NotFound from '../app/NotFound';
 import Profile from '../features/users/Profile';

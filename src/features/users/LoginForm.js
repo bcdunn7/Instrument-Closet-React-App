@@ -1,8 +1,11 @@
 import { Formik, Form } from 'formik';
 import { TextField, Button } from '@mui/material';
 import './LoginForm.css';
+import { loginUser } from './userSlice';
+import { useDispatch } from 'react-redux';
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
     let submitError = null;
 
     return (
@@ -24,11 +27,10 @@ const LoginForm = () => {
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                     try {
                         submitError = null;
-                        //log user in via api
-                        // do something with store?
+                        dispatch(loginUser(values));
                         resetForm();
                         setSubmitting(false);
-                        //history.push('/') or maybe instruments page?
+                        // navigate
                     } catch (e) {
                         submitError = e;
                         resetForm();

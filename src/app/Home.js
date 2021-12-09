@@ -1,7 +1,7 @@
 import './Home.css';
 import guitarImage from './Guitar-Transparent.png';
 import Grid from '@mui/material/Grid';
-import LoginForm from '../features/auth/LoginForm';
+import LoginForm from '../features/users/LoginForm';
 
 const Home = () => {
 
