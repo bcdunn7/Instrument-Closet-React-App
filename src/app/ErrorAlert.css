@@ -1,0 +1,12 @@
+/* .MuiAlert-root {
+    width: 50vw;
+    position: sticky;
+    margin: auto;
+} */
+
+.ErrorAlert-holder {
+    width: 50%;
+    position: absolute;
+    margin: auto;
+    top: 30px;
+}

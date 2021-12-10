@@ -1,11 +1,33 @@
-import { Formik, Form, Field } from 'formik';
+import { useEffect, useState } from 'react';
+import { Formik, Form } from 'formik';
+import { TextField, Button } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import { registerUser } from './userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import ErrorAlert from '../../app/ErrorAlert';
+import './SignupForm.css';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
-    let submitError = null;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const userError = useSelector(state => state.user.error);
+    const token = useSelector(state => state.user.token);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    useEffect(() => {
+        if (token && hasSubmitted) {
+            navigate('/instruments');
+        }
+    }, [token, navigate, hasSubmitted])
 
     return (
-        <div>
-            <h2>Signup</h2>
+        <div className='SignupForm'>
+            <h2 className='SignupForm-heading'>Make An Account</h2>
+            {userError
+                ? <ErrorAlert error={userError}/>
+                : null
+            }
             <Formik
                 initialValues={{
                     username: '',
@@ -32,64 +54,119 @@ const SignupForm = () => {
                     }
                     return errors;
                 }}
-                onSubmit={async (values, { setSubitting, resetForm }) => {
+                onSubmit={async (values, { setSubmitting, resetForm }) => {
                     try {
-                        submitError = null;
-                        //signup user
-                        //store something maybe
+                        dispatch(registerUser(values));
                         resetForm();
-                        setSubitting(false);
-                        //history.push somthing
+                        setSubmitting(false);
+                        setHasSubmitted(true);
                     } catch (e) {
-                        submitError = e;
                         resetForm();
-                        setSubitting(false);
+                        setSubmitting(false);
                     }
                 }}
             >
-                {({ values, errors, touched, handleChange, isSubmitting, initialValues }) => (
-                    <Form className="SignupForm">
-                        <div>
-                            <label htmlFor="username">Username</label>
-                            <Field id="username" name="username" placeholder="username" autoComplete="username" />
-                            {errors.username ? <small>{errors.username}</small> : '👍'}
-                        </div>
+                {({ values, errors, touched, handleChange, isSubmitting }) => (
+                    <Form className="SignupForm-form">
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id='username'
+                                    name='username'
+                                    label='Username'
+                                    variant='outlined'
+                                    onChange={handleChange}
+                                    value={values.username}
+                                    error={errors.username && touched.username ? true : false}
+                                    helperText={errors.username && touched.username ? `${errors.username}` : ' '}
+                                    margin='normal'
+                                    autoComplete='username'
+                                    color='primaryDark'
+                                />
 
-                        <div>
-                            <label htmlFor="password">Password</label>
-                            <Field id="password" name="password" placeholder="password" autoComplete="current-password" />
-                            {errors.password ? <small>{errors.password}</small> : '👍'}
-                        </div>
+                                <TextField
+                                type='password'
+                                    id='password'
+                                    name='password'
+                                    label='Password'
+                                    variant='outlined'
+                                    onChange={handleChange}
+                                    value={values.password}
+                                    error={errors.password && touched.password ? true : false}
+                                    helperText={errors.password && touched.password ? `${errors.password}` : ' '}
+                                    margin='normal'
+                                    autoComplete='current-password'
+                                    color='primaryDark'
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id='firstName'
+                                    name='firstName'
+                                    label='First Name'
+                                    variant='outlined'
+                                    onChange={handleChange}
+                                    value={values.firstName}
+                                    error={errors.firstName && touched.firstName ? true : false}
+                                    helperText={errors.firstName && touched.firstName ? `${errors.firstName}` : ' '}
+                                    margin='normal'
+                                    autoComplete='given-name'
+                                    color='primaryDark'
+                                />
+                            
+                                <TextField
+                                    id='lastName'
+                                    name='lastName'
+                                    label='Last Name'
+                                    variant='outlined'
+                                    onChange={handleChange}
+                                    value={values.lastName}
+                                    error={errors.lastName && touched.lastName ? true : false}
+                                    helperText={errors.lastName && touched.lastName ? `${errors.lastName}` : ' '}
+                                    margin='normal'
+                                    autoComplete='family-name'
+                                    color='primaryDark'
+                                />
+                            </Grid>
+                            <Grid item xs={12}>       
+                                <TextField
+                                    id='email'
+                                    name='email'
+                                    label='Email'
+                                    variant='outlined'
+                                    onChange={handleChange}
+                                    value={values.email}
+                                    error={errors.email && touched.email ? true : false}
+                                    helperText={errors.email && touched.email ? `${errors.email}` : ' '}
+                                    margin='normal'
+                                    autoComplete='email'
+                                    color='primaryDark'
+                                />
+                                
+                                <TextField
+                                    id='phone'
+                                    name='phone'
+                                    label='Phone'
+                                    variant='outlined'
+                                    onChange={handleChange}
+                                    value={values.phone}
+                                    error={errors.phone && touched.phone ? true : false}
+                                    helperText={errors.phone && touched.phone ? `${errors.phone}` : ' '}
+                                    margin='normal'
+                                    autoComplete='tel-national'
+                                    color='primaryDark'
+                                />
+                            </Grid>
+                        </Grid>
 
-                        <div>
-                            <label htmlFor="firstName">First Name</label>
-                            <Field id="firstName" name="firstName" placeholder="Joe" autoComplete="given-name" />
-                            {errors.firstName ? <small>{errors.firstName}</small> : '👍'}
-                        </div>
-
-                        <div>
-                            <label htmlFor="lastName">Last Name</label>
-                            <Field id="lastName" name="lastName" placeholder="Smith" autoComplete="family-name" />
-                            {errors.lastName ? <small>{errors.lastName}</small> : '👍'}
-                        </div>
-
-                        <div>
-                            <label htmlFor="email">Email</label>
-                            <Field id="email" name="email" placeholder="user@email.com" autoComplete="email" />
-                            {errors.email ? <small>{errors.email}</small> : '👍'}
-                        </div>
-
-                        <div>
-                            <label htmlFor="phone">Phone</label>
-                            <Field id="phone" name="phone" placeholder="785-555-1234" autoComplete="tel-national" />
-                            {errors.phone ? <small>{errors.phone}</small> : '👍'}
-                        </div>
-
-                        <button type="submit">Login</button>
-                        {submitError
-                            ? <div>{submitError}</div>
-                            : null
-                        }
+                        <Button 
+                            variant='contained' 
+                            type='submit' 
+                            disabled={isSubmitting}
+                            color='primaryDark'
+                        >
+                            Sign me up!
+                        </Button>
                     </Form>
                 )}
             </Formik>

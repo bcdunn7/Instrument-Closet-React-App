@@ -1,0 +1,29 @@
+.SignupForm {
+    padding: 30px 130px;
+    text-align: center;
+}
+
+.SignupForm-form {
+    margin: auto;
+    width: 50vw;
+}
+
+.SignupForm-heading {
+    color: #005662;
+    margin-bottom: 30px;
+}
+
+.SignupForm .MuiFormControl-root {
+    margin: 0px 30px;
+    min-width: 20vw;
+}
+
+.SignupForm input {
+    padding: auto 50px;
+}
+
+.SignupForm button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: calc(40vw + 60px);
+}

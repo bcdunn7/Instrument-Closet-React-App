@@ -1,15 +1,31 @@
+import { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { TextField, Button } from '@mui/material';
 import './LoginForm.css';
 import { loginUser } from './userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import ErrorAlert from '../../app/ErrorAlert';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    let submitError = null;
+    const userError = useSelector(state => state.user.error);
+    const token = useSelector(state => state.user.token);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    useEffect(() => {
+        if (token && hasSubmitted) {
+            navigate('/instruments');
+        }
+    }, [token, navigate, hasSubmitted])
 
     return (
         <div className='LoginForm-div'>
+            {userError
+                ? <ErrorAlert error={userError}/>
+                : null
+            }
             <Formik
                 initialValues={{
                     username: '',
@@ -26,25 +42,23 @@ const LoginForm = () => {
                 }}
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                     try {
-                        submitError = null;
                         dispatch(loginUser(values));
                         resetForm();
                         setSubmitting(false);
-                        // navigate
+                        setHasSubmitted(true);
                     } catch (e) {
-                        submitError = e;
                         resetForm();
                         setSubmitting(false);
                     }
                 }}
             >
-                {({ values, errors, touched, handleChange, isSubmitting, initialValues }) => (
+                {({ values, errors, touched, handleChange, isSubmitting }) => (
                     <Form className="LoginForm">
                         <TextField
                             id='username'
                             name='username'
                             label='Username'
-                            vairant='filled'
+                            vairant='outlined'
                             onChange={handleChange}
                             value={values.username}
                             error={errors.username && touched.username ? true : false}
@@ -70,11 +84,6 @@ const LoginForm = () => {
                             autoComplete='current-password'
                             color='primaryDark'
                         />
-
-                        {submitError
-                            ? <div>{submitError}</div>
-                            : null
-                        }
 
                         <Button 
                             variant='contained' 

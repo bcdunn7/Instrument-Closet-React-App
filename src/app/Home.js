@@ -2,8 +2,10 @@ import './Home.css';
 import guitarImage from './Guitar-Transparent.png';
 import Grid from '@mui/material/Grid';
 import LoginForm from '../features/users/LoginForm';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
+    const token = useSelector(state => state.user.token);
 
     return (
         <div className="Home">
@@ -13,13 +15,18 @@ const Home = () => {
                         <h2>
                          An Instrument Inventory & <br/>
                          Reservation System.</h2>
-                        <p>Sign in to get started</p>
-                        <LoginForm/>
+                         {token 
+                            ? <p>Already logged in :)</p>
+                            :<>
+                                <p>Sign in to get started</p>
+                                <LoginForm/>
+                            </>
+                        }
                     </div>
                 </Grid>
                 <Grid item xs={5}>
                     <div className='Home-img-container'>
-                        <img src={guitarImage} />
+                        <img src={guitarImage} alt=''/>
                     </div>
                 </Grid>
             </Grid>
