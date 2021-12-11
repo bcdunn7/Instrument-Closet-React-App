@@ -17,11 +17,9 @@ const Home = () => {
                          Reservation System.</h2>
                          {token 
                             ? <p>Already logged in :)</p>
-                            :<>
-                                <p>Sign in to get started</p>
-                                <LoginForm/>
-                            </>
+                            : <p>Sign in to get started</p>
                         }
+                        <LoginForm/>
                     </div>
                 </Grid>
                 <Grid item xs={5}>

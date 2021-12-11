@@ -20,6 +20,8 @@ const LoginForm = () => {
         }
     }, [token, navigate, hasSubmitted])
 
+    if (token) return <div>Logout button here</div>;
+
     return (
         <div className='LoginForm-div'>
             {userError

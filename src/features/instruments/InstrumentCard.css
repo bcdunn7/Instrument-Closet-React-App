@@ -1,0 +1,12 @@
+.InstrumentCard {
+    margin: 10px;
+}
+
+.InstrumentCard-quantity {
+    color: green;
+    font-weight: bolder;
+}
+
+.InstrumentCard-btn {
+    font-weight: bolder;
+}

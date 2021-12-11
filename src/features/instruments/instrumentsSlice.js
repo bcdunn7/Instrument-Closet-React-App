@@ -6,8 +6,20 @@ export async function getAllInstruments(dispatch) {
     dispatch({ type: 'instruments/instrumentsLoaded', payload: resp.instruments })
 }
 
+export function getInstrumentReservations(data) {
+    return async function getInstResvsThunk(dispatch) {
+        try {
+            const resp = await ClosetAPI.getInstrumentReservations(data);
+            dispatch({ type: 'instruments/instrumentReservationsLoaded', payload: resp.reservations })
+        } catch (e) {
+            console.error(e[0].data.error);
+        }
+    }
+}
+
 const initialState = {
-    entities: []
+    entities: [],
+    currInstrument: {}
 };
 
 export const instrumentsSlice = createSlice({
@@ -16,11 +28,14 @@ export const instrumentsSlice = createSlice({
     reducers: {
         instrumentsLoaded(state, action) {
             state.entities = action.payload
+        },
+        instrumentReservationsLoaded(state, action) {
+            state.currInstrument.reservations = action.payload;
         }
     }
 })
 
 
-export const { instrumentsLoaded } = instrumentsSlice.actions;
+export const { instrumentsLoaded, instrumentReservationsLoaded } = instrumentsSlice.actions;
 
 export default instrumentsSlice.reducer;

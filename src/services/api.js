@@ -45,6 +45,12 @@ class ClosetAPI {
         let res = await this.request('instruments');
         return res;
     }
+
+    /** Get instrument reservations */
+    static async getInstrumentReservations(instId) {
+        let res = await this.request(`instruments/${instId}/reservations`);
+        return res;
+    }
 }
 
 // dev token
