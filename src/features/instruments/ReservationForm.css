@@ -1,0 +1,51 @@
+.ReservationForm {
+    font-family: 'Bree Serif', serif;
+}
+
+.ReservationForm-dialog-title {
+    font-family: 'Bree Serif', serif;
+    font-size: xx-large;
+    color: #6B8054;
+}
+
+.ReservationForm-DateTimePicker-div {
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+}
+
+.ReservationForm-dialog-content {
+    margin: 10px 50px;
+    text-align: center;
+    min-height: 60vh;
+}
+
+.ReservationForm-dialog-div {
+    min-height: 80vh;
+    justify-items: center;
+    align-items: center;
+}
+
+.ReservationForm-timezone-wrapper {
+    width: 40vw;
+    margin: auto;
+}
+
+.css-6j8wv5-Input {
+    padding: 13px;
+}
+
+.ReservationForm-notes {
+    width: 40vw;
+    margin: 30px;
+}
+
+.ReservationForm-slider-div {
+    margin: auto;
+    width: 40vw;
+}
+
+.ReservationForm-quantity-error {
+    color: red;
+}

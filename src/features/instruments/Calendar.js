@@ -1,0 +1,20 @@
+import React from 'react';
+import FullCalendar from '@fullcalendar/react';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
+const Calendar = ({ events }) => {
+
+    return (
+        <FullCalendar
+            plugins={[ timeGridPlugin ]}
+            initialView='timeGridWeek'
+            slotDuration='01:00:00'
+            allDaySlot={false}
+            height={'auto'}
+            nowIndicator={true}
+            events={events}
+        />
+    )
+}
+
+export default Calendar;
