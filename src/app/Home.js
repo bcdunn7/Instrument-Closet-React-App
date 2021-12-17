@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 const Home = () => {
     const token = useSelector(state => state.user.token);
+    const username = useSelector(state => state.user.userData.username);
 
     return (
         <div className="Home">
@@ -16,7 +17,7 @@ const Home = () => {
                          An Instrument Inventory & <br/>
                          Reservation System.</h2>
                          {token 
-                            ? <p>Already logged in :)</p>
+                            ? <p>Welcome Back {username}!</p>
                             : <p>Sign in to get started</p>
                         }
                         <LoginForm/>

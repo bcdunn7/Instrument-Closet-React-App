@@ -40,6 +40,12 @@ class ClosetAPI {
         return res;
     }
 
+    /** Get user data */
+    static async getUserData(username) {
+        let res = await this.request(`users/${username}`);
+        return res;
+    }
+
     /** Get all Instruments */
     static async getAllInstruments() {
         let res = await this.request('instruments');
@@ -49,6 +55,12 @@ class ClosetAPI {
     /** Get instrument reservations */
     static async getInstrumentReservations(instId) {
         let res = await this.request(`instruments/${instId}/reservations`);
+        return res;
+    }
+
+    /** Create Reservation */
+    static async createReservation(data) {
+        let res = await this.request(`reservations`, data, 'POST');
         return res;
     }
 }

@@ -29,7 +29,7 @@ const InstrumentPage = () => {
         <>
             <div>name: {inst.name}</div>
             <div>quan: {inst.quantity}</div>
-            <ReservationForm instName={inst.name} instQuantity={inst.quantity} instReservations={instReservations}/>
+            <ReservationForm instId={inst.id} instName={inst.name} instQuantity={inst.quantity} instReservations={instReservations}/>
             <Calendar
                 events={formattedReservations}
             />
