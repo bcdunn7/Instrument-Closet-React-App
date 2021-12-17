@@ -20,7 +20,17 @@ const LoginForm = () => {
         }
     }, [token, navigate, hasSubmitted])
 
-    if (token) return <div>Logout button here</div>;
+    if (token) return (
+        <div>
+            <Button 
+                variant='outlined' 
+                color='primaryDark'
+                onClick={() => dispatch({ type: 'user/logoutUser' })}
+            >
+                Logout
+            </Button>
+        </div>
+    );
 
     return (
         <div className='LoginForm-div'>

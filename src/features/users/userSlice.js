@@ -69,10 +69,15 @@ export const userSlice = createSlice({
         },
         setTokenFromLocalStorage(state, action) {
             state.token = action.payload;
+        },
+        logoutUser(state) {
+            localStorage.removeItem('token');
+            state.token = null;
+            state.userData = null;
         }
     }
 })
 
-export const { userLoggedIn, userRegistered, loginError, registerError, userDataLoaded, clearError } = userSlice.actions;
+export const { userLoggedIn, userRegistered, loginError, registerError, userDataLoaded, clearError, setTokenFromLocalStorage, logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;
