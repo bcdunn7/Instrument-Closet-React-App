@@ -1,8 +1,12 @@
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { useState } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
 import './SearchBar.css'
+import { useDispatch } from 'react-redux';
+import { getAllInstruments } from './instrumentsSlice';
 
-const SearchBar = ({ filter }) => {
+const SearchBar = () => {
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState();
 
     const handleChange = (e) => {
@@ -16,6 +20,7 @@ const SearchBar = ({ filter }) => {
     const handleSearch = (e) => {
         e.preventDefault();
         console.log(formData);
+        dispatch(getAllInstruments({...formData}))
     }
 
     return (
@@ -29,8 +34,8 @@ const SearchBar = ({ filter }) => {
                 onChange={handleChange}
                 InputProps={{
                     endAdornment: <InputAdornment position='end'>
-                                        <IconButton>
-                                            Search
+                                        <IconButton type='submit'>
+                                            <SearchIcon/>
                                         </IconButton>
                                     </InputAdornment>
                 }}

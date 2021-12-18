@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"; 
 import ClosetAPI from '../../services/api';
 
-export async function getAllInstruments(dispatch) {
-    const resp = await ClosetAPI.getAllInstruments();
-    dispatch({ type: 'instruments/instrumentsLoaded', payload: resp.instruments })
+export function getAllInstruments(filter) {
+    return async function getAllInstrumentsThunk(dispatch) {
+        const resp = await ClosetAPI.getAllInstruments(filter);
+        dispatch({ type: 'instruments/instrumentsLoaded', payload: resp.instruments })
+    }
 }
 
 export function getInstrumentReservations(data) {

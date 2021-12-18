@@ -10,7 +10,8 @@ const Instruments = () => {
     const instruments = useSelector(st => st.instruments.entities);
    
     useEffect(() => {
-        dispatch(getAllInstruments)
+        console.log('effect?')
+        dispatch(getAllInstruments())
     }, [dispatch])
 
     return (

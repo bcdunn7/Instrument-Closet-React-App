@@ -46,9 +46,15 @@ class ClosetAPI {
         return res;
     }
 
-    /** Get all Instruments */
-    static async getAllInstruments() {
-        let res = await this.request('instruments');
+    /** Get all Instruments 
+     * Optional name filtering.
+    */
+    static async getAllInstruments(filter) {
+        let requestString = 'instruments'
+        if (filter && filter.name) {
+            requestString += '?name=' + filter.name;
+        }
+        let res = await this.request(requestString);
         return res;
     }
 

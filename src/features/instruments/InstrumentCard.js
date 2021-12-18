@@ -26,11 +26,11 @@ const InstrumentCard = ({ inst }) => {
                     </CardContent>
                     <CardActions>
                         <Grid container>
-                            <Grid item xs={8}>
-                                <Typography className='InstrumentCard-quantity'>Quantity: {inst.quantity}</Typography>
+                            <Grid item xs={6}>
+                                <Typography className='InstrumentCard-footer'>Quantity: {inst.quantity}</Typography>
                             </Grid>
-                            <Grid item xs={4}>
-                                <Button className='InstrumentCard-btn' onClick={handleReserveClick} color='primaryDark'>Reserve</Button>
+                            <Grid item xs={6}>
+                                <Typography className='InstrumentCard-footer InstrumentCard-footer-right'>Click to Reserve</Typography>
                             </Grid>
                         </Grid>
                     </CardActions>

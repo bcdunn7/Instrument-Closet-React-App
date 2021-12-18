@@ -1,8 +1,12 @@
-.InstrumentCard-quantity {
-    color: #005662;
-    font-weight: bolder;
+.InstrumentCard-footer {
     min-height: 24.5px;
     padding: 6px 0px;
+    color: #005662;
+    font-weight: bolder;
+}
+
+.InstrumentCard-footer-right {
+    text-align: right;
 }
 
 .InstrumentCard-content {
