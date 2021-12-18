@@ -31,11 +31,14 @@ export const instrumentsSlice = createSlice({
         },
         instrumentReservationsLoaded(state, action) {
             state.currInstrument.reservations = action.payload;
+        },
+        newReservationAdded(state, action) {
+            state.currInstrument.reservations = [...state.currInstrument.reservations, action.payload];
         }
     }
 })
 
 
-export const { instrumentsLoaded, instrumentReservationsLoaded } = instrumentsSlice.actions;
+export const { instrumentsLoaded, instrumentReservationsLoaded, newReservationAdded } = instrumentsSlice.actions;
 
 export default instrumentsSlice.reducer;

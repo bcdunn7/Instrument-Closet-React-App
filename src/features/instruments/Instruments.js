@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllInstruments } from "./instrumentsSlice";
 import InstrumentCard from "./InstrumentCard";
+import { Grid } from "@mui/material";
 
 const Instruments = () => {
     const dispatch = useDispatch();
@@ -17,7 +18,9 @@ const Instruments = () => {
             <div>Searchbar</div>
             <div>Tag filters</div>
             <div className="Instruments-list">
-                {instruments.map(i => <InstrumentCard inst={i} />)}
+                <Grid container rowSpacing={2} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
+                    {instruments.map(i => <InstrumentCard inst={i} key={i.id} />)}
+                </Grid>
             </div>
         </div>
     )

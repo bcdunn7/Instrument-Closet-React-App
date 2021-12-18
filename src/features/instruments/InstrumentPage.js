@@ -14,7 +14,7 @@ const InstrumentPage = () => {
 
     useEffect(() => {
         if (instReservations) {
-            setFormattedReservations( instReservations.map(r => ({
+            setFormattedReservations(instReservations.map(r => ({
                 start: parseInt(r.startTime + '000'),
                 end: parseInt(r.endTime + '000'),
                 id: r.id,
@@ -34,7 +34,8 @@ const InstrumentPage = () => {
             end: parseInt(`${newResv.endTime}000`),
             id: newResv.id,
             title: `${newResv.quantity} Reserved`
-        }])
+        }]);
+        dispatch(getInstrumentReservations(instId));
     }
 
     return (

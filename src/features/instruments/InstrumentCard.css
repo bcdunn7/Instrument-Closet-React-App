@@ -1,12 +1,19 @@
-.InstrumentCard {
-    margin: 10px;
+.InstrumentCard-quantity {
+    color: #005662;
+    font-weight: bolder;
+    min-height: 24.5px;
+    padding: 6px 0px;
 }
 
-.InstrumentCard-quantity {
-    color: green;
-    font-weight: bolder;
+.InstrumentCard-content {
+    min-height: 150px;
 }
 
 .InstrumentCard-btn {
     font-weight: bolder;
+}
+
+.InstrumentCard-image {
+    max-width: 200px;
+    max-height: 200px;
 }

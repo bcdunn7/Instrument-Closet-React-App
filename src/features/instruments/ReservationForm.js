@@ -11,8 +11,9 @@ import ClosetAPI from '../../services/api';
 import { useSelector } from 'react-redux';
 import ErrorAlert from '../../app/ErrorAlert';
 
-const ReservationForm = ({ instId, instName, instQuantity, instReservations, addReservation }) => {
+const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => {
     const userData = useSelector(state => state.user.userData);
+    const instReservations = useSelector(state => state.instruments.currInstrument.reservations);
     const [open, setOpen] = useState(false);
     const [startTime, setStartTime] = useState(DateTime.now().startOf('hour').plus({ hours: 1}));
     const [endTime, setEndTime] = useState(DateTime.now().startOf('hour').plus({ hours: 3}));
@@ -103,7 +104,7 @@ const ReservationForm = ({ instId, instName, instQuantity, instReservations, add
                                     <div className='ReservationForm-slider-div'>
                                         <Slider
                                             aria-label='Quantity'
-                                            value={quantity.toString()}
+                                            value={quantity}
                                             step={1}
                                             marks
                                             min={1}
