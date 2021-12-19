@@ -1,0 +1,13 @@
+.TagFilters-div {
+    margin: 10px 0px 15px 0px;
+    min-height: 40px;
+}
+
+.TagFilters-chip {
+    margin: 3px 6px;
+}
+
+.TagFilters-span {
+    color: #005662;
+    margin: 3px;
+}

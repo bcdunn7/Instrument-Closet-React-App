@@ -21,7 +21,8 @@ export function getInstrumentReservations(data) {
 
 const initialState = {
     entities: [],
-    currInstrument: {}
+    currInstrument: {},
+    selectedCategories: []
 };
 
 export const instrumentsSlice = createSlice({
@@ -36,11 +37,17 @@ export const instrumentsSlice = createSlice({
         },
         newReservationAdded(state, action) {
             state.currInstrument.reservations = [...state.currInstrument.reservations, action.payload];
+        },
+        categorySelected(state, action) {
+            state.selectedCategories = [...state.selectedCategories, action.payload];
+        },
+        categoryRemoved(state, action) {
+            state.selectedCategories = state.selectedCategories.filter(c => c !== action.payload);
         }
     }
 })
 
 
-export const { instrumentsLoaded, instrumentReservationsLoaded, newReservationAdded } = instrumentsSlice.actions;
+export const { instrumentsLoaded, instrumentReservationsLoaded, newReservationAdded, categorySelected, categoryRemoved } = instrumentsSlice.actions;
 
 export default instrumentsSlice.reducer;

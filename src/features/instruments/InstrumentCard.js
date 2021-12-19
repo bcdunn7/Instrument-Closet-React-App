@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, Typography, Button, Grid, CardMedia, CardActionArea } from '@mui/material';
+import { Card, CardActions, CardContent, Typography, Chip, Grid, CardMedia, CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './InstrumentCard.css'
 
@@ -23,6 +23,7 @@ const InstrumentCard = ({ inst }) => {
                     <CardContent className='InstrumentCard-content'>
                         <Typography className='InstrumentCard-name' variant='h5'>{inst.name}</Typography>
                         <Typography className='InstrumentCard-description' >{inst.description}</Typography>
+                        <div>{inst.categories.map(c => <Chip key={c.id} className='InstrumentCard-Chip' color='primary' size='small' label={c.category}/>)}</div>
                     </CardContent>
                     <CardActions>
                         <Grid container>

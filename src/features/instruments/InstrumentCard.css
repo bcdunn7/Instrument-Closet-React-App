@@ -10,7 +10,7 @@
 }
 
 .InstrumentCard-content {
-    min-height: 150px;
+    min-height: 180px;
 }
 
 .InstrumentCard-btn {
@@ -20,4 +20,8 @@
 .InstrumentCard-image {
     max-width: 200px;
     max-height: 200px;
+}
+
+.InstrumentCard-Chip {
+    margin: 2px;
 }
