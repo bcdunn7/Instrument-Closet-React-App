@@ -23,7 +23,18 @@ const Instruments = () => {
                 <Grid container rowSpacing={2} columnSpacing={{ xs: 2, sm: 3, md: 4 }}>
                     {instruments.map(i => {
                         if (selectedCategories.length > 0) {
-                            
+                            for (let catObj of i.categories) {
+                                if (selectedCategories.includes(catObj.category)) {
+                                    return (
+                                        <InstrumentCard 
+                                            inst={i} 
+                                            key={i.id} 
+                                            
+                                        />
+                                    )
+                                }
+                            }
+                            return null;
                         }
                         return (
                             <InstrumentCard 
