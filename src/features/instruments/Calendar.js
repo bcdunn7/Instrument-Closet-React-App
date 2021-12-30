@@ -13,6 +13,7 @@ const Calendar = ({ events }) => {
             height={'auto'}
             nowIndicator={true}
             events={events}
+            eventColor='#005662'
         />
     )
 }

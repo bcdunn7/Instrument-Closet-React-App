@@ -8,11 +8,10 @@ import ReservationForm from './ReservationForm';
 const InstrumentPage = () => {
     const dispatch = useDispatch();
     const { instId } = useParams();
+    const user = useSelector(state => state.user.userData)
     const inst = useSelector(state => state.instruments.entities.filter(i => i.id.toString() === instId)[0]);
     const instReservations = useSelector(state => state.instruments.currInstrument.reservations);
     const [formattedReservations, setFormattedReservations] = useState([]);
-
-    // if (!inst) return 'Sorry, couldn\'t find that instrument';
 
     useEffect(() => {
         if (instReservations) {
@@ -20,7 +19,9 @@ const InstrumentPage = () => {
                 start: parseInt(r.startTime + '000'),
                 end: parseInt(r.endTime + '000'),
                 id: r.id,
-                title: `${r.quantity} Reserved`
+                title: r.userId === user.id ? `${r.quantity} Reserved by Me!` : `${r.quantity} Reserved`,
+                backgroundColor: r.userId === user.id ? '#81b9bf' : '#005662',
+                borderColor: r.userId === user.id ? '#81b9bf' : '#005662'
             })))
         }
     }, [instReservations])
