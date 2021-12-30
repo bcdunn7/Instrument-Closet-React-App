@@ -2,19 +2,19 @@ import { Alert, Snackbar } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-const ErrorAlert = ({error}) => {
+const ErrorAlert = ({error, dispAction}) => {
     const dispatch = useDispatch();
 
     const handleClose = (e, reason) => {
         if (reason === 'clickaway') return;
-        dispatch({ type: 'user/clearError' });
+        dispatch({ type: `${dispAction}` });
     }
 
     useEffect(() => {
         return () => {
-            dispatch({ type: 'user/clearError' });
+            dispatch({ type: `${dispAction}` });
         }
-    }, [])
+    }, [dispatch, dispAction])
 
     return (
         <Snackbar

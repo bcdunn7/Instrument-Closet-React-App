@@ -12,6 +12,8 @@ const InstrumentPage = () => {
     const instReservations = useSelector(state => state.instruments.currInstrument.reservations);
     const [formattedReservations, setFormattedReservations] = useState([]);
 
+    // if (!inst) return 'Sorry, couldn\'t find that instrument';
+
     useEffect(() => {
         if (instReservations) {
             setFormattedReservations(instReservations.map(r => ({
@@ -40,18 +42,23 @@ const InstrumentPage = () => {
 
     return (
         <>
-            <div>name: {inst.name}</div>
-            <div>quan: {inst.quantity}</div>
-            <ReservationForm 
-                instId={inst.id} 
-                instName={inst.name} 
-                instQuantity={inst.quantity} 
-                instReservations={instReservations}
-                addReservation={addReservation}    
-            />
-            <Calendar
-                events={formattedReservations}
-            />
+            {inst 
+                ? <>
+                    <div>name: {inst.name}</div>
+                    <div>quan: {inst.quantity}</div>
+                    <ReservationForm 
+                        instId={inst.id} 
+                        instName={inst.name} 
+                        instQuantity={inst.quantity} 
+                        instReservations={instReservations}
+                        addReservation={addReservation}    
+                    />
+                    <Calendar
+                        events={formattedReservations}
+                    />
+                </>
+                : <div>Sorry, couldn't find that instrument :/ It's possible the instruments aren't loaded yet, head to instrument list</div>
+            }
         </>
     )
 }

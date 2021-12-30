@@ -22,7 +22,9 @@ const Routing = () => {
             <Route path='/profile' element={
                 token ? <Profile/> : <Navigate to='/' />
             } />
-            <Route path='/signup' element={<SignupForm/>} />
+            <Route path='/signup' element={
+                token ? <Navigate to='/' /> : <SignupForm/>
+            } />
             <Route path='/' element={<Home/>} />
             <Route path='*' element={<NotFound/>} />
         </Routes>

@@ -22,7 +22,8 @@ export function getInstrumentReservations(data) {
 const initialState = {
     entities: [],
     currInstrument: {},
-    selectedCategories: []
+    selectedCategories: [],
+    resvError: null
 };
 
 export const instrumentsSlice = createSlice({
@@ -43,11 +44,17 @@ export const instrumentsSlice = createSlice({
         },
         categoryRemoved(state, action) {
             state.selectedCategories = state.selectedCategories.filter(c => c !== action.payload);
+        },
+        reservationError(state, action) {
+            state.resvError = action.payload;
+        },
+        clearError(state) {
+            state.resvError = null;
         }
     }
 })
 
 
-export const { instrumentsLoaded, instrumentReservationsLoaded, newReservationAdded, categorySelected, categoryRemoved } = instrumentsSlice.actions;
+export const { instrumentsLoaded, instrumentReservationsLoaded, newReservationAdded, categorySelected, categoryRemoved, reservationError, clearError } = instrumentsSlice.actions;
 
 export default instrumentsSlice.reducer;

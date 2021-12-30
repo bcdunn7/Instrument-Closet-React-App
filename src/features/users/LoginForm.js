@@ -35,7 +35,7 @@ const LoginForm = () => {
     return (
         <>
             {userError
-                ? <ErrorAlert error={userError}/>
+                ? <ErrorAlert error={userError} dispAction='user/clearError' />
                 : null
             }
             <div className='LoginForm-div'>

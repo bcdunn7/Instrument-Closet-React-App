@@ -8,11 +8,13 @@ import { DateTime } from 'luxon';
 import TimezoneSelect from 'react-timezone-select';
 import './ReservationForm.css';
 import ClosetAPI from '../../services/api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ErrorAlert from '../../app/ErrorAlert';
 
 const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => {
+    const dispatch = useDispatch();
     const userData = useSelector(state => state.user.userData);
+    const resvError = useSelector(state => state.instruments.resvError);
     const instReservations = useSelector(state => state.instruments.currInstrument.reservations);
     const [open, setOpen] = useState(false);
     const [startTime, setStartTime] = useState(DateTime.now().startOf('hour').plus({ hours: 1}));
@@ -22,7 +24,6 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
     const [notes, setNotes] = useState('');
     const [reservedAtTargetTime, setReservedAtTargetTime] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [resvError, setResvError] = useState();
 
     useEffect(() => {
         setLoading(true);
@@ -56,7 +57,6 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('submit')
         const resvData = {
             userId: userData.id,
             instrumentId: instId,
@@ -66,7 +66,6 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
             timeZone: timeZone,
             notes: notes
         }
-        console.log(resvData);
 
         try {
             const resp = await ClosetAPI.createReservation(resvData);
@@ -79,110 +78,116 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
             setNotes('');
         } catch (e) {
             console.error(e);
-            setResvError(e);
+            dispatch({ type: 'instruments/reservationError', payload: e[0].data.error })
         }
     }
 
     return (
-        <div className='ReservationForm'>
-            <Button onClick={handleClickOpen} variant='outlined' color='primaryDark'>Reserve This Instrument</Button>
-            <Dialog 
-                className='ReservationForm-dialog' 
-                open={open} 
-                onClose={handleClose} 
-                fullWidth={true} 
-                maxWidth='lg'
-            >
-                <div className='ReservationForm-dialog-div'>
-                    <DialogTitle className='ReservationForm-dialog-title'>Reserve {instName}</DialogTitle>
-                    <form onSubmit={handleSubmit}>
-                        <DialogContent className='ReservationForm-dialog-content'>
-                            {resvError ? <ErrorAlert error={resvError}/> : null}
-                            {instQuantity > 1
-                                ? <>
-                                    <DialogContentText>
-                                        <b>Quantity: {quantity}</b>
-                                        <br/>
-                                        <span className={quantity > instQuantity-reservedAtTargetTime ? 'ReservationForm-validation-error' : null}>
-                                        (Available at Desired Time: {instQuantity-reservedAtTargetTime})
-                                        </span>
-                                    </DialogContentText>
-                                    <div className='ReservationForm-slider-div'>
-                                        <Slider
-                                            aria-label='Quantity'
-                                            value={quantity}
-                                            step={1}
-                                            marks
-                                            min={1}
-                                            max={instQuantity}
-                                            valueLabelDisplay='auto'
-                                            color='secondary'
-                                            onChange={(e, newQuantity) => setQuantity(newQuantity)}
+        <>
+            {resvError
+                ? <ErrorAlert error={resvError} dispAction='instruments/clearError'/>
+                : null
+            }
+            <div className='ReservationForm'>
+                <Button onClick={handleClickOpen} variant='outlined' color='primaryDark'>Reserve This Instrument</Button>
+                <Dialog 
+                    className='ReservationForm-dialog' 
+                    open={open} 
+                    onClose={handleClose} 
+                    fullWidth={true} 
+                    maxWidth='lg'
+                >
+                    <div className='ReservationForm-dialog-div'>
+                        <DialogTitle className='ReservationForm-dialog-title'>Reserve {instName}</DialogTitle>
+                        <form onSubmit={handleSubmit}>
+                            <DialogContent className='ReservationForm-dialog-content'>
+                                {resvError ? <ErrorAlert error={resvError}/> : null}
+                                {instQuantity > 1
+                                    ? <>
+                                        <DialogContentText>
+                                            <b>Quantity: {quantity}</b>
+                                            <br/>
+                                            <span className={quantity > instQuantity-reservedAtTargetTime ? 'ReservationForm-validation-error' : null}>
+                                            (Available at Desired Time: {instQuantity-reservedAtTargetTime})
+                                            </span>
+                                        </DialogContentText>
+                                        <div className='ReservationForm-slider-div'>
+                                            <Slider
+                                                aria-label='Quantity'
+                                                value={quantity}
+                                                step={1}
+                                                marks
+                                                min={1}
+                                                max={instQuantity}
+                                                valueLabelDisplay='auto'
+                                                color='secondary'
+                                                onChange={(e, newQuantity) => setQuantity(newQuantity)}
+                                            />
+                                        </div>
+                                    </>
+                                    : <div className='ReservationForm-validation-error'>
+                                        {reservedAtTargetTime > 0
+                                            ? 'Not Available at Desired Time'
+                                            : null
+                                        }
+                                    </div>
+                                }
+                                <TextField
+                                    className='ReservationForm-notes'
+                                    label='Notes'
+                                    multiline
+                                    maxRows={6}
+                                    value={notes}
+                                    onChange={(e) => setNotes(e.target.value)}
+                                    color='secondaryDarker'
+                                />
+                                <LocalizationProvider dateAdapter={AdapterLuxon}>
+                                    <div className='ReservationForm-DateTimePicker-div'>
+                                        <DateTimePicker
+                                            renderInput={(props) => <TextField color='secondaryDarker' {...props} />}
+                                            label="Start Time"
+                                            value={startTime}
+                                            onChange={(newStartTime) => {
+                                                setStartTime(newStartTime);
+                                            }}
+                                            views={['year','month','day','hours']}
+                                            minutesStep={60}
+                                            color='primaryDark'
                                         />
                                     </div>
-                                </>
-                                : <div className='ReservationForm-validation-error'>
-                                    {reservedAtTargetTime > 0
-                                        ? 'Not Available at Desired Time'
-                                        : null
-                                    }
+                                    <div className='ReservationForm-DateTimePicker-div'>
+                                        <DateTimePicker
+                                            className='ReservationForm-DateTimePicker'
+                                            renderInput={(props) => <TextField color='secondaryDarker' {...props} />}
+                                            label="End Time"
+                                            value={endTime}
+                                            onChange={(newEndTime) => {
+                                                setEndTime(newEndTime);
+                                            }}
+                                            views={['year','month','day','hours']}
+                                            minutesStep={60}
+                                        />
+                                    </div>
+                                </LocalizationProvider>
+                                <div className='ReservationForm-validation-error'>
+                                    {startTime < DateTime.now() || endTime < DateTime.now() ? 'Cannot make a reservation in the past' : endTime <= startTime ? 'End Time must be later than Start' : ' '}
                                 </div>
-                            }
-                            <TextField
-                                className='ReservationForm-notes'
-                                label='Notes'
-                                multiline
-                                maxRows={6}
-                                value={notes}
-                                onChange={(e) => setNotes(e.target.value)}
-                                color='secondaryDarker'
-                            />
-                            <LocalizationProvider dateAdapter={AdapterLuxon}>
-                                <div className='ReservationForm-DateTimePicker-div'>
-                                    <DateTimePicker
-                                        renderInput={(props) => <TextField color='secondaryDarker' {...props} />}
-                                        label="Start Time"
-                                        value={startTime}
-                                        onChange={(newStartTime) => {
-                                            setStartTime(newStartTime);
-                                        }}
-                                        views={['year','month','day','hours']}
-                                        minutesStep={60}
-                                        color='primaryDark'
+                                <div className='ReservationForm-timezone-wrapper'>
+                                    <TimezoneSelect
+                                        value={timeZone}
+                                        onChange={(newTimeZone) => setTimeZone(newTimeZone.value)}
                                     />
                                 </div>
-                                <div className='ReservationForm-DateTimePicker-div'>
-                                    <DateTimePicker
-                                        className='ReservationForm-DateTimePicker'
-                                        renderInput={(props) => <TextField color='secondaryDarker' {...props} />}
-                                        label="End Time"
-                                        value={endTime}
-                                        onChange={(newEndTime) => {
-                                            setEndTime(newEndTime);
-                                        }}
-                                        views={['year','month','day','hours']}
-                                        minutesStep={60}
-                                    />
-                                </div>
-                            </LocalizationProvider>
-                            <div className='ReservationForm-validation-error'>
-                                {startTime < DateTime.now() || endTime < DateTime.now() ? 'Cannot make a reservation in the past' : endTime <= startTime ? 'End Time must be later than Start' : ' '}
-                            </div>
-                            <div className='ReservationForm-timezone-wrapper'>
-                                <TimezoneSelect
-                                    value={timeZone}
-                                    onChange={(newTimeZone) => setTimeZone(newTimeZone.value)}
-                                />
-                            </div>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose} color='warning'>Cancel</Button>
-                            <LoadingButton type='submit' variant='outlined' color='secondaryDarker' loading={loading}>Reserve</LoadingButton>
-                        </DialogActions>
-                    </form>
-                </div>
-            </Dialog>
-        </div>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose} color='warning'>Cancel</Button>
+                                <LoadingButton type='submit' variant='outlined' color='secondaryDarker' loading={loading}>Reserve</LoadingButton>
+                            </DialogActions>
+                        </form>
+                    </div>
+                </Dialog>
+            </div>
+        </>
     )
 }
 
