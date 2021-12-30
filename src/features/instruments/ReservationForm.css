@@ -38,7 +38,7 @@
 
 .ReservationForm-notes {
     width: 40vw;
-    margin: 30px;
+    margin: 12px;
 }
 
 .ReservationForm-slider-div {
@@ -46,6 +46,8 @@
     width: 40vw;
 }
 
-.ReservationForm-quantity-error {
+.ReservationForm-validation-error {
     color: red;
+    margin: 10px auto;
+    min-height: 21.5px;
 }

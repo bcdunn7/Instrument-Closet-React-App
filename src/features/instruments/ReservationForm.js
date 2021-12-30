@@ -29,16 +29,22 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
         if (instReservations) {
             const unixStart = startTime.setZone(timeZone.value, { keepLocalTime: true }).toSeconds();
             const unixEnd = endTime.setZone(timeZone.value, { keepLocalTime: true }).toSeconds();
-    
+            
             setReservedAtTargetTime(instReservations.reduce((sum, next) => {
-                if ((next.startTime < unixEnd && next.startTime > unixStart) || (next.endTime > unixStart && next.endTime < unixEnd)) {
+                if ((next.startTime < unixEnd && next.startTime >= unixStart) || (next.endTime > unixStart && next.endTime <= unixEnd)) {
                     return sum + next.quantity;
                 } else return sum; 
             }, 0))
         }
 
-        setLoading(false);
-    }, [startTime, endTime, timeZone, instReservations, reservedAtTargetTime, loading])
+        if (quantity > instQuantity-reservedAtTargetTime) setLoading(true);
+        else if (endTime <= startTime) setLoading(true);
+        else if (startTime < DateTime.now() || endTime < DateTime.now()) setLoading(true);
+
+        else setLoading(false);
+    }, [quantity, instQuantity, startTime, endTime, timeZone, instReservations, reservedAtTargetTime, loading])
+
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -97,7 +103,7 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
                                     <DialogContentText>
                                         <b>Quantity: {quantity}</b>
                                         <br/>
-                                        <span className={quantity > instQuantity-reservedAtTargetTime ? 'ReservationForm-quantity-error' : null}>
+                                        <span className={quantity > instQuantity-reservedAtTargetTime ? 'ReservationForm-validation-error' : null}>
                                         (Available at Desired Time: {instQuantity-reservedAtTargetTime})
                                         </span>
                                     </DialogContentText>
@@ -115,12 +121,12 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
                                         />
                                     </div>
                                 </>
-                                : <>
-                                {reservedAtTargetTime > 0
-                                    ? <div className='ReservationForm-quantity-error'>Not Available at Desired Time</div>
-                                    : null
-                                }
-                                </>
+                                : <div className='ReservationForm-validation-error'>
+                                    {reservedAtTargetTime > 0
+                                        ? 'Not Available at Desired Time'
+                                        : null
+                                    }
+                                </div>
                             }
                             <TextField
                                 className='ReservationForm-notes'
@@ -159,6 +165,9 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
                                     />
                                 </div>
                             </LocalizationProvider>
+                            <div className='ReservationForm-validation-error'>
+                                {startTime < DateTime.now() || endTime < DateTime.now() ? 'Cannot make a reservation in the past' : endTime <= startTime ? 'End Time must be later than Start' : ' '}
+                            </div>
                             <div className='ReservationForm-timezone-wrapper'>
                                 <TimezoneSelect
                                     value={timeZone}
