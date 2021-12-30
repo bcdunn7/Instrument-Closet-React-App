@@ -1,9 +1,11 @@
+import { useSelector } from 'react-redux';
+
 const Profile = () => {
-    // get user from store
+    const user = useSelector(state => state.user.userData);
 
     return (
         <div className='Profile'>
-            <h3>User Name Here</h3>
+            <h3>Hey {user.username}! Welcome to your profile page.</h3>
             {/* form to edit user
                 can edit firstName, lastName, email, phone.
                 ^ That should probably be it.
