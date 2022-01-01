@@ -23,7 +23,12 @@ const MyReservations = () => {
         <div className='MyReservationsPage'>
             <h3>Reservations for {userData.username}</h3>
             <div className='MyReservationsPage-container'>
-                {reservations.map(r => <ReservationCard resvData={r}/>)}
+                {reservations.length > 0 
+                    ? <>
+                        {reservations.map(r => <ReservationCard resvData={r}/>)}
+                    </>
+                    : <p>Doesn't look like you've made any reservations yet. Head to the Instrument List tab to make a reservation.</p>
+                }
             </div>
         </div>
     )

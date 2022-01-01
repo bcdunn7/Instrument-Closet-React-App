@@ -1,0 +1,23 @@
+.ReservationCard {
+    background-color: #eefdfd;
+    padding: 10px;
+    margin: 20px 5px;
+    border-radius: 10px;
+    border: 0.5px solid #005662;
+    box-shadow:rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.text-center {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-center span {
+    margin: 0px 5px;
+}
+
+.past {
+    background-color: #86b5bb55;
+}
