@@ -4,6 +4,9 @@
     align-items: baseline;
 }
 
+.Navbar-navlink {
+    padding: 9px;
+}
 
 .Navbar-logo {
     font-family: 'Bree Serif', serif;

@@ -1,15 +1,17 @@
 import { useSelector } from 'react-redux';
+import DeleteUserBtn from './DeleteUserBtn';
+import EditUserForm from './EditUserForm';
+import './Profile.css';
 
 const Profile = () => {
-    const user = useSelector(state => state.user.userData);
+    const userData = useSelector(state => state.user.userData);
 
     return (
         <div className='Profile'>
-            <h3>Hey {user.username}! Welcome to your profile page.</h3>
-            {/* form to edit user
-                can edit firstName, lastName, email, phone.
-                ^ That should probably be it.
-            */}
+            <h3 className='Profile-heading'>Hey {userData.username}! Edit Your Personal Details Here</h3>
+            
+            <EditUserForm userData={userData}/>
+            <DeleteUserBtn/>
         </div>
     )
 }

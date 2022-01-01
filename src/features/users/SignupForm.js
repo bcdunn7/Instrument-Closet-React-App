@@ -64,6 +64,7 @@ const SignupForm = () => {
                             setSubmitting(false);
                             setHasSubmitted(true);
                         } catch (e) {
+                            console.error(e);
                             resetForm();
                             setSubmitting(false);
                         }

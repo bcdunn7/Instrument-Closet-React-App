@@ -40,9 +40,21 @@ class ClosetAPI {
         return res;
     }
 
+    /** Update User */
+    static async updateUser(username, data) {
+        let res = await this.request(`users/${username}`, data, 'PATCH');
+        return res;
+    }
+
     /** Get user data */
     static async getUserData(username) {
         let res = await this.request(`users/${username}`);
+        return res;
+    }
+
+    /** Delete User */
+    static async deleteUser(username) {
+        let res = await this.request(`users/${username}`, {}, 'DELETE');
         return res;
     }
 
@@ -70,8 +82,5 @@ class ClosetAPI {
         return res;
     }
 }
-
-// dev token
-ClosetAPI.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYzODkxMTc1Nn0.0ktfgodE0BBlpF6gYl1cTL3zYob3nAGTlDRtci-Yxh8";
 
 export default ClosetAPI;

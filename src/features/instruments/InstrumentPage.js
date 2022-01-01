@@ -24,7 +24,7 @@ const InstrumentPage = () => {
                 borderColor: r.userId === user.id ? '#81b9bf' : '#005662'
             })))
         }
-    }, [instReservations])
+    }, [instReservations, user.id])
 
     useEffect(() => {
         dispatch(getInstrumentReservations(instId))

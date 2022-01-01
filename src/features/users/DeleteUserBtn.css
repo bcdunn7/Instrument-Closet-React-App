@@ -1,0 +1,20 @@
+.DeleteUserBtn-div {
+    padding: 20px;
+}
+
+#DeleteUserBtn-main {
+    margin: 20px 0;
+}
+
+#DeleteUserBtn-main:hover {
+    background-color: #B6383F;
+}
+
+.DeleteUserBtn-div-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+#DeleteUserBtn-confirm:hover {
+    background-color: #B6383F;
+}
