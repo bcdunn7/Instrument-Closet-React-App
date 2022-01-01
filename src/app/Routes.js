@@ -7,6 +7,7 @@ import Profile from '../features/users/Profile';
 import Instruments from '../features/instruments/Instruments';
 import InstrumentPage from '../features/instruments/InstrumentPage';
 import MyReservationsPage from '../features/instruments/MyReservationsPage';
+import EditReservationForm from '../features/instruments/EditReservationForm';
 
 const Routing = () => {
     const token = useSelector(state => state.user.token);
@@ -18,6 +19,9 @@ const Routing = () => {
             } />
             <Route path='/instruments' element={
                 token ? <Instruments/> : <Navigate to='/' />
+            } />
+            <Route path='/reservations/:resvId' element={
+                token ? <EditReservationForm/> : <Navigate to='/' />
             } />
             <Route path='/reservations' element={
                 token ? <MyReservationsPage/> : <Navigate to='/' />

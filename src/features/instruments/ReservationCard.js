@@ -4,14 +4,23 @@ import './ReservationCard.css';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useNavigate } from 'react-router-dom';
+import ClosetAPI from '../../services/api';
 
-const ReservationCard = ({ resvData }) => {
+const ReservationCard = ({ resvData, handleDeleteClick }) => {
+    const navigate = useNavigate();
     const inThePast = DateTime.fromSeconds(resvData.endTime) < DateTime.now();
+
+    const handleEditClick = (e) => {
+        e.preventDefault();
+        navigate(`/reservations/${resvData.id}`);
+    }
 
     return (
         <div className={inThePast ? 'ReservationCard past' : 'ReservationCard'}>
             <Grid container spacing={2} justifyContent='space-between' alignItems='center'>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <b>{resvData.instrumentName}</b>
                 </Grid>
                 <Grid item xs={1} className='text-center'>
@@ -33,7 +42,10 @@ const ReservationCard = ({ resvData }) => {
                     </span>
                 </Grid>
                 <Grid item xs={1}>
-                    <Button color='primaryDark' variant='contained' disabled={inThePast ? true : false}>{inThePast ? 'Old' : 'Edit'}</Button>
+                    <Button onClick={handleEditClick} color='primaryDark' variant='contained' disabled={inThePast ? true : false}>{inThePast ? 'Old' : 'Edit'}</Button>
+                </Grid>
+                <Grid item xs={1}>
+                    <Button onClick={handleDeleteClick} color='warning' variant='contained' data-resvid={resvData.id}><DeleteForeverIcon data-resvid={resvData.id}/></Button>
                 </Grid>
             </Grid>
         </div>

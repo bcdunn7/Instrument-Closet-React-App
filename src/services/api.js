@@ -87,6 +87,20 @@ class ClosetAPI {
         let res = await this.request(`users/${username}/reservations`);
         return res;
     }
+
+    /** Get Reservation */
+    static async getReservation(resvId) {
+        let res = await this.request(`reservations/${resvId}`);
+        return res;
+    }
+
+    /** Patch Reservation */
+
+    /** Delete Reservation */
+    static async deleteReservation(resvId) {
+        let res = await this.request(`reservations/${resvId}`, {}, 'DELETE');
+        return res;
+    }
 }
 
 export default ClosetAPI;
