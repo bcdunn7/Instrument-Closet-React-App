@@ -6,10 +6,10 @@ import NotFound from '../app/NotFound';
 import Profile from '../features/users/Profile';
 import Instruments from '../features/instruments/Instruments';
 import InstrumentPage from '../features/instruments/InstrumentPage';
+import MyReservationsPage from '../features/instruments/MyReservationsPage';
 
 const Routing = () => {
     const token = useSelector(state => state.user.token);
-
 
     return (
         <Routes>
@@ -19,6 +19,9 @@ const Routing = () => {
             <Route path='/instruments' element={
                 token ? <Instruments/> : <Navigate to='/' />
             } />
+            <Route path='/reservations' element={
+                token ? <MyReservationsPage/> : <Navigate to='/' />
+            }/>
             <Route path='/profile' element={
                 token ? <Profile/> : <Navigate to='/' />
             } />

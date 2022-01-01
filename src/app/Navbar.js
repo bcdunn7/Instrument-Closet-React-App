@@ -20,6 +20,9 @@ const Navbar = () => {
                         <NavLink className='Navbar-navlink' to='/instruments'>
                             <Button color='primaryDark'>Instrument List</Button>
                         </NavLink>
+                        <NavLink className='Navbar-navlink' to='/reservations'>
+                            <Button color='primaryDark'>My Reservations</Button>
+                        </NavLink>
                         <NavLink className='Navbar-navlink' to='/profile'>
                             <Button color='primaryDark'>Profile</Button>
                         </NavLink>
@@ -27,10 +30,10 @@ const Navbar = () => {
                             <Button color='primaryDark' onClick={() => dispatch({ type: 'user/logoutUser' })}>Logout</Button>
                         </div>
                         </>
-                        : <NavLink className='Navbar-navlink' to='/signup'>
-                            <Button className='Navbar-signup-btns' color='primaryDark'>
-                                <span className='Navbar-signup-btn-noaccount'>Don't Have An Account?</span>
-                                <span className='Navbar-signup-btn-signup'>Signup Now!</span>
+                        : 
+                        <NavLink className='Navbar-navlink' to='/signup'>
+                            <Button className='Navbar-signup-btn' color='primaryDark'>
+                                Signup Now!
                             </Button>
                         </NavLink>
                     }

@@ -81,6 +81,12 @@ class ClosetAPI {
         let res = await this.request(`reservations`, data, 'POST');
         return res;
     }
+
+    /** Get all user Reservations */
+    static async getUserReservations(username) {
+        let res = await this.request(`users/${username}/reservations`);
+        return res;
+    }
 }
 
 export default ClosetAPI;
