@@ -4,3 +4,11 @@
     padding-top: 25px;
     color: rgb(118, 137, 156);
 }
+
+.Footer span {
+    margin: 0px 10px;
+}
+
+.Footer-icon {
+    margin: 0px 4px;
+}
