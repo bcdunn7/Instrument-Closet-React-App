@@ -30,10 +30,20 @@ Required Tech: Node/npm
 
 * It is up and running! You can query it using Insomnia or any similar tool, or your own application!
 
-* Test application with npm test
+* Test application with npm test (Cypress integreation and e2e testing)
 
     ```
     $ npm test
+    ```
+
+* For component testing:
+    ```
+    $ npm run cy:ct
+    ```
+
+* For typical cypress testing:
+    ```
+    $ npm run cy:open
     ```
 
 ### **Tech Used:**
