@@ -1,0 +1,42 @@
+.EditReservationForm {
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.EditReservationForm-heading {
+    color: #6B8054;
+}
+
+.EditReservationForm-validation-error {
+    color: red;
+    margin: 10px auto;
+    min-height: 21.5px;
+}
+
+.EditReservationForm-slider-div {
+    margin: auto;
+    width: 40vw;
+}
+
+.EditReservationForm-notes {
+    width: 40vw;
+    margin: 12px;
+}
+.EditReservationForm-DateTimePicker-div {
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+}
+
+.EditReservationForm-timezone-wrapper {
+    width: 40vw;
+    margin: auto;
+}
+
+.EditReservationForm-btns-div {
+    margin: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}

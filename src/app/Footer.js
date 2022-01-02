@@ -1,6 +1,5 @@
 import './Footer.css';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Button } from '@mui/material';
 
 const Footer = () => {
     return(

@@ -70,6 +70,12 @@ class ClosetAPI {
         return res;
     }
 
+    /** Get Instrument */
+    static async getInstrument(id) {
+        let res = await this.request(`instruments/${id}`);
+        return res;
+    }
+
     /** Get instrument reservations */
     static async getInstrumentReservations(instId) {
         let res = await this.request(`instruments/${instId}/reservations`);
@@ -95,6 +101,10 @@ class ClosetAPI {
     }
 
     /** Patch Reservation */
+    static async patchReservation(resvId, data) {
+        let res = await this.request(`reservations/${resvId}`, data, 'PATCH');
+        return res;
+    }
 
     /** Delete Reservation */
     static async deleteReservation(resvId) {

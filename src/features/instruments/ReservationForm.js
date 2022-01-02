@@ -45,8 +45,6 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
         else setLoading(false);
     }, [quantity, instQuantity, startTime, endTime, timeZone, instReservations, reservedAtTargetTime, loading])
 
-
-
     const handleClickOpen = () => {
         setOpen(true);
     };

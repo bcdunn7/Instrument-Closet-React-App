@@ -6,7 +6,6 @@ import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useNavigate } from 'react-router-dom';
-import ClosetAPI from '../../services/api';
 
 const ReservationCard = ({ resvData, handleDeleteClick }) => {
     const navigate = useNavigate();
