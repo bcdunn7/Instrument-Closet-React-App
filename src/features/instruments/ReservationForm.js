@@ -87,7 +87,7 @@ const ReservationForm = ({ instId, instName, instQuantity, addReservation }) => 
                 : null
             }
             <div className='ReservationForm'>
-                <Button onClick={handleClickOpen} variant='outlined' color='primaryDark'>Reserve This Instrument</Button>
+                <Button onClick={handleClickOpen} variant='outlined' color='primaryDark'>Make A Reservation</Button>
                 <Dialog 
                     className='ReservationForm-dialog' 
                     open={open} 

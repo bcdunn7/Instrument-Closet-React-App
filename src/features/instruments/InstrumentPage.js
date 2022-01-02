@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getInstrumentReservations } from './instrumentsSlice';
 import Calendar from './Calendar';
 import ReservationForm from './ReservationForm';
+import Grid from '@mui/material/Grid';
+import './InstrumentPage.css';
 
 const InstrumentPage = () => {
     const dispatch = useDispatch();
@@ -45,15 +47,27 @@ const InstrumentPage = () => {
         <>
             {inst 
                 ? <>
-                    <div>name: {inst.name}</div>
-                    <div>quan: {inst.quantity}</div>
-                    <ReservationForm 
-                        instId={inst.id} 
-                        instName={inst.name} 
-                        instQuantity={inst.quantity} 
-                        instReservations={instReservations}
-                        addReservation={addReservation}    
-                    />
+                    <div className='hr-div-a'/>
+                    <Grid container spacing={2} className='InstrumentPage-heading-grid'>
+                        <Grid item xs={12} className='InstrumentPage-heading-name'>
+                            <h2>{inst.name}</h2>
+                        </Grid>
+                        <Grid item xs={3}/>
+                        <Grid item xs={3} className='InstrumentPage-quantity'>
+                            <div>Quantity in Inventory: {inst.quantity}</div>
+                        </Grid>
+                        <Grid item xs={3} className='InstrumentPage-reserve-btn'>
+                            <ReservationForm 
+                                instId={inst.id} 
+                                instName={inst.name} 
+                                instQuantity={inst.quantity} 
+                                instReservations={instReservations}
+                                addReservation={addReservation}    
+                        />
+                        </Grid>
+                        <Grid item xs={3}/>
+                    </Grid>
+                    <div className='hr-div-b'/>
                     <Calendar
                         events={formattedReservations}
                     />
