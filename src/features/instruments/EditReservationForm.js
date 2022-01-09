@@ -11,7 +11,7 @@ import { Slider, TextField, Button } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from "@mui/lab";
 import AdapterLuxon from '@mui/lab/AdapterLuxon';
 import LoadingButton from '@mui/lab/LoadingButton';
-
+import createFreqCounter from "../../services/frequencyCounter";
 import TimezoneSelect from "react-timezone-select/dist";
 
 
@@ -29,8 +29,8 @@ const EditReservationForm = () => {
     const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
     const [quantity, setQuantity] = useState(1);
     const [notes, setNotes] = useState('');
-    const [startTime, setStartTime] = useState(DateTime.now().startOf('hour').plus({ hours: 1}));
-    const [endTime, setEndTime] = useState(DateTime.now().startOf('hour').plus({ hours: 3}));
+    const [startTime, setStartTime] = useState(DateTime.now().startOf('hour').plus({ hours: 1 }));
+    const [endTime, setEndTime] = useState(DateTime.now().startOf('hour').plus({ hours: 3 }));
 
     const userId = useSelector(state => state.user.userData.id);
     const resvError = useSelector(state => state.instruments.resvError);
@@ -63,17 +63,29 @@ const EditReservationForm = () => {
         if (instReservations && reservation) {
             const unixStart = startTime.setZone(timeZone.value, { keepLocalTime: true }).toSeconds();
             const unixEnd = endTime.setZone(timeZone.value, { keepLocalTime: true }).toSeconds();
-            
-            const initialReserved = instReservations.reduce((sum, next) => {
-                if ((next.startTime < unixEnd && next.startTime >= unixStart) || (next.endTime > unixStart && next.endTime <= unixEnd)) {
-                    return sum + next.quantity;
-                } else return sum; 
-            }, 0)
 
-            setReservedAtTargetTime(initialReserved-reservation.quantity);
+            setReservedAtTargetTime(() => {
+                const resvFreqs = createFreqCounter(instReservations);
+
+                let maxResvQuantity = 0;
+
+                let start = unixStart;
+
+                while (start < unixEnd) {
+                    let currResvQuantity = resvFreqs[start];
+                    if (currResvQuantity > maxResvQuantity) {
+                        maxResvQuantity = currResvQuantity
+                    }
+
+                    // 3600 is the number of seconds in an hour, which is the current granularity allowed of reservations
+                    start += 3600;
+                }
+
+                return maxResvQuantity - reservation.quantity;
+            })
         }
 
-        if (quantity > instQuantity-reservedAtTargetTime) setLoading(true);
+        if (quantity > instQuantity - reservedAtTargetTime) setLoading(true);
         else if (endTime <= startTime) setLoading(true);
         else if (startTime < DateTime.now() || endTime < DateTime.now()) setLoading(true);
 
@@ -98,7 +110,7 @@ const EditReservationForm = () => {
             console.error(e);
             dispatch({ type: 'instruments/reservationError', payload: e[0].data.error })
         }
-    } 
+    }
 
     if (!reservation || !instrument) return (<p>Loading...</p>);
 
@@ -116,9 +128,9 @@ const EditReservationForm = () => {
                             ? <>
                                 <div>
                                     <b>Quantity: {quantity}</b>
-                                    <br/>
-                                    <span className={quantity > instQuantity-reservedAtTargetTime ? 'EditReservationForm-validation-error' : null}>
-                                            (Available at Desired Time: {instQuantity-reservedAtTargetTime})
+                                    <br />
+                                    <span className={quantity > instQuantity - reservedAtTargetTime ? 'EditReservationForm-validation-error' : null}>
+                                        (Available at Desired Time: {instQuantity - reservedAtTargetTime})
                                     </span>
                                 </div>
                                 <div className="EditReservationForm-slider-div">
@@ -157,7 +169,7 @@ const EditReservationForm = () => {
                                     renderInput={(props) => <TextField color='secondaryDarker' {...props} />}
                                     label='Start Time'
                                     value={startTime}
-                                    onChange={(newStartTime) => {setStartTime(newStartTime);}}
+                                    onChange={(newStartTime) => { setStartTime(newStartTime); }}
                                     views={['year', 'month', 'day', 'hours']}
                                     minutesStep={60}
                                     color='primaryDark'
@@ -172,7 +184,7 @@ const EditReservationForm = () => {
                                     onChange={(newEndTime) => {
                                         setEndTime(newEndTime);
                                     }}
-                                    views={['year','month','day','hours']}
+                                    views={['year', 'month', 'day', 'hours']}
                                     minutesStep={60}
                                 />
                             </div>
@@ -197,7 +209,7 @@ const EditReservationForm = () => {
                     </div>
                 </form>
             </div>
-        </> 
+        </>
     )
 }
 
