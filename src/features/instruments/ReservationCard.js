@@ -19,32 +19,32 @@ const ReservationCard = ({ resvData, handleDeleteClick }) => {
     return (
         <div className={inThePast ? 'ReservationCard past' : 'ReservationCard'}>
             <Grid container spacing={2} justifyContent='space-between' alignItems='center'>
-                <Grid item xs={3}>
+                <Grid item xs={9} lg={3}>
                     <b>{resvData.instrumentName}</b>
                 </Grid>
-                <Grid item xs={1} className='text-center'>
-                    <NumbersIcon/> 
+                <Grid item xs={3} lg={1} className='text-center'>
+                    <NumbersIcon />
                     <span >
                         {resvData.quantity}
                     </span>
                 </Grid>
-                <Grid item xs={3} className='text-center'>
-                    <QueryBuilderIcon/> 
+                <Grid item xs={12} md={4} lg={3} className='text-center'>
+                    <QueryBuilderIcon />
                     <span >
                         {DateTime.fromSeconds(resvData.startTime).toLocaleString(DateTime.DATETIME_MED)}
                     </span>
                 </Grid>
-                <Grid item xs={3} className='text-center'>
-                    <WatchLaterIcon/> 
+                <Grid item xs={12} md={4} lg={3} className='text-center'>
+                    <WatchLaterIcon />
                     <span >
                         {DateTime.fromSeconds(resvData.endTime).toLocaleString(DateTime.DATETIME_MED)}
                     </span>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={6} md={2} lg={1}>
                     <Button onClick={handleEditClick} color='primaryDark' variant='contained' disabled={inThePast ? true : false}>{inThePast ? 'Old' : 'Edit'}</Button>
                 </Grid>
-                <Grid item xs={1}>
-                    <Button onClick={handleDeleteClick} color='warning' variant='contained' data-resvid={resvData.id}><DeleteForeverIcon data-resvid={resvData.id}/></Button>
+                <Grid item xs={6} md={2} lg={1}>
+                    <Button onClick={handleDeleteClick} color='warning' variant='contained' data-resvid={resvData.id}><DeleteForeverIcon data-resvid={resvData.id} /></Button>
                 </Grid>
             </Grid>
         </div>

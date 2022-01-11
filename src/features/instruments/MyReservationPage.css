@@ -1,4 +1,11 @@
 .MyReservationsPage {
-    margin: 0 50px;
+    margin: 0 10px;
     color: #005662;
+}
+
+@media (min-width: 650px) {
+    .MyReservationsPage {
+        margin: 0 50px;
+        color: #005662;
+    }
 }

@@ -10,7 +10,7 @@ const TagFilters = () => {
     const categories = instruments.reduce((sum, next) => {
         for (let cat of next.categories) {
             if (!sum.includes(cat.category)) return [...sum, cat.category]
-              else return sum;
+            else return sum;
         }
         return sum;
     }, [])
@@ -23,19 +23,21 @@ const TagFilters = () => {
 
     return (
         <div className='TagFilters-div'>
-            <Stack direction='row' spacing={2}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                 <span className='TagFilters-span'>Filter by type →</span>
-                {categories.map(c => (
-                    <Chip 
-                        className='TagFilters-chip' 
-                        onClick={handleClick} 
-                        key={c} 
-                        label={c}
-                        {...selectedCategories.includes(c) ? {color: 'primaryDark'} : null}
-                    />)
-                )}
-            </Stack>
-        </div>
+                {
+                    categories.map(c => (
+                        <Chip
+                            className='TagFilters-chip'
+                            onClick={handleClick}
+                            key={c}
+                            label={c}
+                            {...selectedCategories.includes(c) ? { color: 'primaryDark' } : null}
+                        />)
+                    )
+                }
+            </Stack >
+        </div >
     )
 }
 

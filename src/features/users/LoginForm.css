@@ -1,13 +1,29 @@
+
 .LoginForm-div {
-    margin-top: 50px;
-    margin-right: 150px;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+
+@media (min-width: 580px) {
+    .LoginForm-div {
+        margin-top: 50px;
+        margin-right: 150px;
+    }
+    
+    .LoginForm-div button {
+        margin-top: 16px;
+        padding: 10px;
+        word-spacing: 5px;
+        font-size: larger;
+    }
 }
 
 .LoginForm-div button {
-    margin-top: 16px;
-    padding: 10px;
+    margin-top: 5px;
+    padding: 5px;
     word-spacing: 5px;
-    font-size: larger;
+    font-size: large;
 }
 
 input:-webkit-autofill { 
